@@ -34,10 +34,21 @@ func (s *service) GetDetails() *model.CarDetails {
 	//goroutine get data from https://myfakeapi.com/api/users/1
 	go ownerService.FetchDataOwner()
 
+	car, _ := getCarData()
+	owner, _ := getOwnerData()
+
 	//create carChannel to get the data from endpoint2
 	//create ownerChannel to ghe the data from endpoint2
 
-	return nil
+	return &model.CarDetails{
+		ID:        car.ID,
+		Brand:     car.Brand,
+		Model:     car.Model,
+		Year:      car.Year,
+		FirstName: owner.FirstName,
+		LastName:  owner.LastName,
+		Email:     owner.Email,
+	}
 }
 
 func getCarData() (model.Car, error) {
